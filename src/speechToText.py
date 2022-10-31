@@ -24,7 +24,7 @@ from cloudspeech import CloudSpeechClient
 
 def get_hints(language_code):
     if language_code.startswith('ko_'):
-        return ('응', '아니', '비타안녕', '잘가')
+        return ('응', '먹었어', '아니', '비타안녕', '잘가')
     return None
 
 def locale_language():
@@ -54,13 +54,14 @@ def speechToText():
                 continue
 
             logging.info('You said: "%s"' % text)
-            if '응' in text:
-                return 'yes'
-            elif '아니' in text:
+
+            if '아니' in text or '안' in text:
                 return 'no'
+            elif '응' in text or '먹었어' in text:
+                return 'yes'
             elif '비타안녕' in text:
                 return 'hello'
             elif '잘가' in text:
                 return 'bye'
             else:
-                print('undefined')
+                return 'etc'
