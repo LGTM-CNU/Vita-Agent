@@ -1,26 +1,11 @@
 #!/usr/bin/env python3
-# Copyright 2017 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""A demo of the Google CloudSpeech recognizer."""
 # -*- coding: utf-8 -*-
 import argparse
 import locale
 import logging
 
 from aiy.board import Board, Led
-from util.speechToText.cloudspeech import CloudSpeechClient
+from util.cloudspeech import CloudSpeechClient
 
 def get_hints(language_code):
     if language_code.startswith('ko_'):
@@ -54,17 +39,4 @@ def listen():
                 continue
 
             logging.info('You said: "%s"' % text)
-
-            if '아니' in text or '안' in text:
-                return 'no'
-            elif '응' in text or '먹었어' in text:
-                return 'yes'
-            elif '비타안녕' in text:
-                return 'hello'
-            elif '잘가' in text:
-                return 'bye'
-            elif '테스트' in text:
-                print('테스트')
-                return 'etc'
-            else:
-                return 'etc'
+            return text

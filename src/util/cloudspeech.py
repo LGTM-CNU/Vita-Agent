@@ -1,33 +1,3 @@
-# Copyright 2017 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""
-APIs that simplify interaction with the `Google Cloud Speech-to-Text service
-<https://cloud.google.com/speech-to-text/docs/>`_ so you can convert voice commands into actions.
-To use this service, you must have a Google Cloud account and a corresponding credentials file.
-For more information, see `these setup instructions
-<https://aiyprojects.withgoogle.com/voice/#makers-guide--custom-voice-user-interface>`_.
-
-For an example, see :github:`src/examples/voice/cloudspeech_demo.py`.
-
-.. note::
-
-    These APIs are designed for the Voice Kit, but have no dependency on the Voice
-    HAT/Bonnet specifically. However, they do require some type of sound card
-    attached to the Raspberry Pi that can be detected by the ALSA subsystem.
-"""
-
 import os
 import logging
 
