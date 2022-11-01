@@ -14,26 +14,24 @@
 # limitations under the License.
 
 """A demo of the Google CloudSpeech recognizer."""
+# -*- coding: utf-8 -*-
 import argparse
 import locale
 import logging
 
 from aiy.board import Board, Led
-from cloudspeech import CloudSpeechClient
+from util.speechToText.cloudspeech import CloudSpeechClient
 
 def get_hints(language_code):
-    if language_code.startswith('en_'):
-        return ('turn on the light',
-                'turn off the light',
-                'blink the light',
-                'goodbye')
+    if language_code.startswith('ko_'):
+        return ('응', '먹었어', '아니', '비타안녕', '잘가')
     return None
 
 def locale_language():
     language, _ = locale.getdefaultlocale()
     return language
 
-def main():
+def listen():
     logging.basicConfig(level=logging.DEBUG)
 
     parser = argparse.ArgumentParser(description='Assistant service example.')
@@ -41,7 +39,7 @@ def main():
     args = parser.parse_args()
 
     logging.info('Initializing for language %s...', args.language)
-    hints = get_hints(args.language)
+    hints = get_hints('ko_KR')
     client = CloudSpeechClient()
     with Board() as board:
         while True:
@@ -49,22 +47,24 @@ def main():
                 logging.info('Say something, e.g. %s.' % ', '.join(hints))
             else:
                 logging.info('Say something.')
-            text = client.recognize(language_code=args.language,
+            text = client.recognize(language_code='ko_KR',
                                     hint_phrases=hints)
             if text is None:
                 logging.info('You said nothing.')
                 continue
 
             logging.info('You said: "%s"' % text)
-            text = text.lower()
-            if 'turn on the light' in text:
-                board.led.state = Led.ON
-            elif 'turn off the light' in text:
-                board.led.state = Led.OFF
-            elif 'blink the light' in text:
-                board.led.state = Led.BLINK
-            elif 'goodbye' in text:
-                break
 
-if __name__ == '__main__':
-    main()
+            if '아니' in text or '안' in text:
+                return 'no'
+            elif '응' in text or '먹었어' in text:
+                return 'yes'
+            elif '비타안녕' in text:
+                return 'hello'
+            elif '잘가' in text:
+                return 'bye'
+            elif '테스트' in text:
+                print('테스트')
+                return 'etc'
+            else:
+                return 'etc'

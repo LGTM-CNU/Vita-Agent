@@ -10,10 +10,12 @@ from gtts import gTTS
 playing = False
 filepath = ''
 
-def saying(text):
-    gtts_say(text)     # gTTS Speech
+# text = 말 할 대사
+# volume = 소리 크기 (0.0 ~ 1.0)
+def say(text, volume=10):
+    gtts_say(text, volume)
 
-def play_text(freq):
+def play_text(freq, volume):
     global playing
 
     if (playing):
@@ -22,6 +24,7 @@ def play_text(freq):
 
     mixer.init(frequency=freq)
     mixer.music.load('temp.mp3')
+    mixer.music.set_volume(volume)
     mixer.music.play()
     while mixer.music.get_busy():
         time.sleep(1)
@@ -32,8 +35,8 @@ def play_text(freq):
         mixer.music.load(filepath)
         mixer.music.play(-1, (old_pos / 1000))
 
-def gtts_say(text):
+def gtts_say(text, volume):
     gtts = gTTS(text=text, lang='ko')
     gtts.save('temp.mp3')
 
-    play_text(24000)
+    play_text(24000, volume)
