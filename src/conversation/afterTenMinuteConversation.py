@@ -1,10 +1,21 @@
+from time import sleep
+from multiprocessing import Process
+
 from util.tts import say
 from util.speechToText import listen
 from util.reponseClassification import classification
 
+
+def saying(text, volume):
+  s = Process(target=(say), args=(text, volume))
+  s.start()
+  return s
+
 def conversationAfterTenMinute(i, volume):
 	say('10분이 지났습니다. 비타민 드셨나요?', volume)
+	sleep(2)
 	client_answer = listen()
+	s.join()
 	client_answer = classification(client_answer)
 	if client_answer == 'yes':
 		if i['type'] == 'C':
