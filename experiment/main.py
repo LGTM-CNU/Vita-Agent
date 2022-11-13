@@ -2,6 +2,7 @@ from threading import Timer, Thread
 from datetime import datetime
 
 from conversation.startConversation import startConversation
+
 from util.medicineService import getMedicinesList
 
 volume = 0.1
@@ -12,7 +13,7 @@ def alarm():
 	print(medicineList)
 
 	startConversation(medicineList, volume, userId)
-	Timer(40, alarm).start()
+	Timer(59, alarm).start()
 
 
 print('Vita Start')

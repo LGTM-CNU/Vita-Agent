@@ -9,11 +9,11 @@ from util.chatService import createChattingRoom, createChattingLog
 def saying(text, volume, chattingId):
   s = Process(target=(say), args=(text, volume))
   s.start()
-  createChattingLog(chattingId, '비타민 먹을 시간입니다. 드셨나요?', 'vita')
+  createChattingLog(chattingId, text, 'vita')
   return s
 
 def conversationAfterTenMinute(i, volume, chattingId, userId):
-	s = saying('3분이 지났습니다. 비타민 드셨나요?', volume, chattingId)
+	s = saying('영균아 3분 지났어 비타민 먹었니?', volume, chattingId)
 	sleep(2)
 	client_answer = listen()
 	s.join()
