@@ -5,14 +5,14 @@ from conversation.startConversation import startConversation
 from util.medicineService import getMedicinesList
 
 volume = 0.1
-userId = '3'
+userId = '12'
 
 def alarm():
 	medicineList = getMedicinesList(userId)
 	print(medicineList)
 
 	startConversation(medicineList, volume, userId)
-	Timer(40, alarm).start()
+	Timer(59, alarm).start()
 
 
 print('Vita Start')

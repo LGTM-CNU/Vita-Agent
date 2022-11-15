@@ -6,7 +6,7 @@ from conversation.startConversation import startConversation
 from util.medicineService import getMedicinesList
 
 volume = 0.1
-userId = '3'
+userId = '12'
 
 def alarm():
 	medicineList = getMedicinesList(userId)

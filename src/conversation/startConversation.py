@@ -44,7 +44,7 @@ from util.medicineService import checkMedicines
 def saying(text, volume, chattingRoomId):
   s = Process(target=(say), args=(text, volume))
   s.start()
-  createChattingLog(chattingRoomId, '비타민 먹을 시간입니다. 드셨나요?', 'vita')
+  createChattingLog(chattingRoomId, text, 'vita')
   return s
 
 def startConversation(medicines, volume, userId):
@@ -58,6 +58,14 @@ def startConversation(medicines, volume, userId):
       s.join()
       createChattingLog(chattingRoomId, client_answer, userId)
       client_answer = classification(client_answer)
+
+      while client_answer == 'etc':
+        s = saying('알아듣지 못했습니다. 다시 말씀해주세요.', volume, chattingRoomId)
+        sleep(2)
+        client_answer = listen()
+        createChattingLog(chattingRoomId, client_answer, userId)
+        client_answer = classification(client_answer)
+
       if client_answer == 'yes':
         if 'C' in medicine['medicines_type']:
           saying('잘하셨어요. 비타민 C는 면역력 증진, 감기 예방, 피부 노화를 방지하는 효능이 있습니다. 좋은 하루되세요.', volume, chattingRoomId)
@@ -66,8 +74,8 @@ def startConversation(medicines, volume, userId):
         else:
           saying('건강하세요.',volume, chattingRoomId)
       elif client_answer == 'no':
-        saying('비타민을 먹어야합니다. 10분 후에 다시 알려드릴께요.', volume, chattingRoomId)
-        Timer(10, conversationAfterTenMinute, [medicines, volume, chattingRoomId, userId]).start()
+        saying('비타민을 먹어야합니다. 3분 후에 다시 알려드릴께요.', volume, chattingRoomId)
+        Timer(180, conversationAfterTenMinute, [medicine, volume, chattingRoomId, userId]).start()
       elif client_answer == 'hello':
         saying('안녕하세요 비타입니다.', volume, chattingRoomId)
       elif client_answer == 'bye':
